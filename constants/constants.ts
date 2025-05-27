@@ -25,3 +25,8 @@ export const onboarding_screens: OnboardingScreensType[] = [
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dapibus varius nulla, quis dictum augue.",
   },
 ];
+
+export const STRINGS = {
+  PERMISSION_DENIED_TITLE: "Permission Denied",
+  PERMISSION_DENIED_CONTENT: "Location permission is required.",
+};
