@@ -8,18 +8,24 @@ import { Alert, Platform, StyleSheet, View } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE, Region } from "react-native-maps";
 
 export default function HomeScreen() {
+  // State to store user's current location
   const [location, setLocation] = useState<Location.LocationObject | null>(
     null
   );
+  // State to store region (used to control the map's visible area)
   const [region, setRegion] = useState<Region | null>(null);
 
+  // Fetch user's current location when the component mounts
   useEffect(() => {
     handleCurrentLocation();
   }, []);
 
+  // Function to request permission and get current GPS location
   const handleCurrentLocation = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync(); // Handles Permission
+    // Request permission to access location
+    let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
+      // Show alert if permission is denied
       Alert.alert(
         STRINGS.PERMISSION_DENIED_TITLE,
         STRINGS.PERMISSION_DENIED_CONTENT
@@ -27,9 +33,11 @@ export default function HomeScreen() {
       return;
     }
 
+    // Get the current position
     const currentLocation = await Location.getCurrentPositionAsync({});
     const { latitude, longitude } = currentLocation.coords;
 
+    // Set state with location and region to update the map
     setLocation(currentLocation);
     setRegion({
       latitude,
@@ -39,10 +47,12 @@ export default function HomeScreen() {
     });
   };
 
+  // Placeholder for menu icon action
   const handleLeftIconPress = () => {
     // TODO: handleLeftIconPress
   };
 
+  // Placeholder for profile icon action
   const handleRightIconPress = () => {
     // TODO: handleRightIconPress
   };
@@ -73,12 +83,14 @@ export default function HomeScreen() {
       backgroundColor={COLORS.backgroundTertiary}
     >
       <View style={styles.container}>
+        {/* Only render the map when region is available */}
         {region && (
           <MapView
             style={styles.map}
             provider={PROVIDER_GOOGLE}
             region={region}
           >
+            {/* Render a marker at the user's current location */}
             {location && (
               <Marker
                 coordinate={{
