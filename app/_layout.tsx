@@ -1,14 +1,10 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "react-native-reanimated";
 
+import { Theme, ThemeContext } from "@/context/ThemeContext";
 import { useColorScheme } from "@/hooks/useColorScheme";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -16,9 +12,20 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const [theme, setTheme] = useState<Theme>("dark");
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
+
+  // Sync with system theme on mount
+  useEffect(() => {
+    setTheme(colorScheme === "light" ? "dark" : "light");
+  }, [colorScheme]);
 
   useEffect(() => {
     if (loaded) {
@@ -31,9 +38,9 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <Stack screenOptions={{ headerShown: false }} />
       {/* No need to declare routes unless you want custom options */}
-    </ThemeProvider>
+    </ThemeContext.Provider>
   );
 }
