@@ -1,6 +1,7 @@
 import Container from "@/components/Container";
 import { STRINGS } from "@/constants/constants";
-import { COLORS } from "@/constants/theme";
+import { COLORS, darkMapStyles, lightMapStyles } from "@/constants/theme";
+import { useTheme } from "@/context/ThemeContext";
 import { getAddressFromCoords } from "@/utils/location";
 import { Ionicons } from "@expo/vector-icons";
 import * as Location from "expo-location";
@@ -27,6 +28,7 @@ export default function HomeScreen() {
   const [fabVisible, setFabVisible] = useState(true);
   const [isFabExpanded, setIsFabExpanded] = useState(true);
   const widthAnim = useRef(new Animated.Value(140)).current; // Initial width for text + icon
+  const { theme, toggleTheme } = useTheme();
 
   // Fetch user's current location when the component mounts
   useEffect(() => {
@@ -100,6 +102,7 @@ export default function HomeScreen() {
   // Placeholder for profile icon action
   const handleRightIconPress = () => {
     // TODO: handleRightIconPress
+    toggleTheme();
   };
 
   return (
@@ -118,8 +121,8 @@ export default function HomeScreen() {
         ),
         right: (
           <Ionicons
-            name="person-circle"
-            size={Platform.OS === "ios" ? 30 : 40}
+            name={theme === "light" ? "sunny" : "moon"}
+            size={Platform.OS === "ios" ? 28 : 32}
             color={COLORS.primary500}
             onPress={handleRightIconPress}
           />
@@ -135,6 +138,7 @@ export default function HomeScreen() {
             style={styles.map}
             provider={PROVIDER_GOOGLE}
             region={region}
+            customMapStyle={theme === "dark" ? darkMapStyles : lightMapStyles}
           >
             {/* Render a marker at the user's current location */}
             {location && (

@@ -71,6 +71,32 @@ export const COLORS = {
   contentInverseTertiary: "#6B6B6B",
 };
 
+export const lightColors = {
+  background: COLORS.backgroundInversePrimary,
+  card: COLORS.gray100,
+  text: COLORS.contentInversePrimary,
+  secondaryText: COLORS.contentInverseSecondary,
+  border: COLORS.gray200,
+  primary: COLORS.primary500,
+  success: COLORS.positive400,
+  error: COLORS.negative400,
+  warning: COLORS.warning400,
+  icon: COLORS.gray600,
+};
+
+export const darkColors = {
+  background: COLORS.backgroundPrimary,
+  card: COLORS.backgroundSecondary,
+  text: COLORS.contentPrimary,
+  secondaryText: COLORS.contentTertiary,
+  border: COLORS.gray700,
+  primary: COLORS.primary400,
+  success: COLORS.positive200,
+  error: COLORS.negative200,
+  warning: COLORS.warning200,
+  icon: COLORS.gray300,
+};
+
 export const SIZES = {
   // global sizes
   base: 8,
@@ -161,6 +187,126 @@ export const FONTS = {
   },
 };
 
-const appTheme = { COLORS, SIZES, FONTS };
+export const darkMapStyles = [
+  {
+    elementType: "geometry",
+    stylers: [{ color: darkColors.background }],
+  },
+  {
+    elementType: "labels.text.fill",
+    stylers: [{ color: darkColors.text }],
+  },
+  {
+    elementType: "labels.text.stroke",
+    stylers: [{ color: darkColors.background }],
+  },
+  {
+    featureType: "administrative",
+    elementType: "geometry",
+    stylers: [{ color: darkColors.border }],
+  },
+  {
+    featureType: "poi",
+    elementType: "geometry",
+    stylers: [{ color: darkColors.card }],
+  },
+  {
+    featureType: "poi.park",
+    elementType: "geometry",
+    stylers: [{ color: darkColors.card }],
+  },
+  {
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [{ color: "#3a3a3a" }],
+  },
+  {
+    featureType: "road",
+    elementType: "labels.text.fill",
+    stylers: [{ color: darkColors.secondaryText }],
+  },
+  {
+    featureType: "road.arterial",
+    elementType: "geometry",
+    stylers: [{ color: "#4a4a4a" }],
+  },
+  {
+    featureType: "road.highway",
+    elementType: "geometry",
+    stylers: [{ color: "#525252" }],
+  },
+  {
+    featureType: "transit",
+    elementType: "geometry",
+    stylers: [{ color: darkColors.card }],
+  },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [{ color: "#1a1a1a" }],
+  },
+];
+
+export const lightMapStyles = [
+  {
+    elementType: "geometry",
+    stylers: [{ color: lightColors.background }],
+  },
+  {
+    elementType: "labels.text.fill",
+    stylers: [{ color: lightColors.text }],
+  },
+  {
+    elementType: "labels.text.stroke",
+    stylers: [{ color: lightColors.background }],
+  },
+  {
+    featureType: "administrative",
+    elementType: "geometry",
+    stylers: [{ color: lightColors.border }],
+  },
+  {
+    featureType: "poi",
+    elementType: "geometry",
+    stylers: [{ color: lightColors.card }],
+  },
+  {
+    featureType: "poi.park",
+    elementType: "geometry",
+    stylers: [{ color: "#d7f0d7" }],
+  },
+  {
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [{ color: "#ffffff" }],
+  },
+  {
+    featureType: "road",
+    elementType: "labels.text.fill",
+    stylers: [{ color: lightColors.secondaryText }],
+  },
+  {
+    featureType: "road.arterial",
+    elementType: "geometry",
+    stylers: [{ color: "#eaeaea" }],
+  },
+  {
+    featureType: "road.highway",
+    elementType: "geometry",
+    stylers: [{ color: "#d6d6d6" }],
+  },
+  {
+    featureType: "transit",
+    elementType: "geometry",
+    stylers: [{ color: lightColors.card }],
+  },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [{ color: "#c9d6de" }],
+  },
+];
+
+const appTheme = { COLORS, SIZES, FONTS, darkMapStyles, lightMapStyles };
 
 export default appTheme;
